@@ -42,6 +42,7 @@ print('lstm timesteps: {}, lstm input dim: {}, num output labels: {}'.format(lst
 
 def nn_model():
    model = Sequential()
+     
    model.add(Convolution1D(nb_filter=nb_filter,
                         filter_length=filter_length,
                         border_mode='valid',                        
@@ -56,7 +57,7 @@ def nn_model():
    
    model.add(Dense(nlabels, activation='softmax', init = 'he_normal'))
    
-   model.compile(loss = 'categorical_crossentropy', optimizer = 'adadelta', metrics=['categorical_accuracy'])
+   model.compile(loss = 'categorical_crossentropy', optimizer = 'adadelta', metrics=['fmeasure'])
    return(model)
 
 df = pd.read_csv('data/vectorized.txt', sep = ' ', header = 0)
@@ -83,8 +84,8 @@ for (inTrain, inTest) in folds:
    print('Fold ', currentFold, ' starting...')
    model = nn_model()
    callbacks = [
-      EarlyStopping(monitor='val_categorical_accuracy', patience = 6, verbose = 0),
-      ModelCheckpoint(monitor='val_categorical_accuracy', filepath=('models/model_fold_{}.hdf5'.format(currentFold)), verbose=0, save_best_only = True)
+      EarlyStopping(monitor='val_fmeasure', patience = 6, verbose = 0, mode='max'),
+      ModelCheckpoint(monitor='val_fmeasure', filepath=('models/model_fold_{}.hdf5'.format(currentFold)), verbose=0, save_best_only = True, mode='max')
    ]
       
    model.fit(xtr, ytr, batch_size=batch_size, nb_epoch=nb_epoch,

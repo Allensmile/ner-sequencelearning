@@ -6,6 +6,8 @@ data/vectorized.bin
 
 data_test*
 
+conlleval
+
 # Package Files #
 #*.jar
 *.war

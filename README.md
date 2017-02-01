@@ -71,6 +71,7 @@ Confusion matrix:
 F1 Score  0.967240147344
 ```
 
+Please note, that this is not how conll does the evaluation, so the above is not comparable with results in the literature.
 
 Vectorizer Compilation
 ----------------------

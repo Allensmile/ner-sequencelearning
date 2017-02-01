@@ -8,7 +8,7 @@ from sklearn.metrics import f1_score, confusion_matrix
 from keras.utils.np_utils import to_categorical
 from keras.models import load_model
 
-def predict_test_file(fname, lstm_input_dim, nlabels):
+def predict_test_file(fname, lstm_input_dim, nlabels, labels):
    print('loading data from file ', fname)
    df = pd.read_csv(fname, sep = ' ', header = 0)
    X = df.iloc[:,1:].values
@@ -35,6 +35,13 @@ def predict_test_file(fname, lstm_input_dim, nlabels):
    score = f1_score(yte_max, ypred_max, average = 'weighted')   
    print("Confusion matrix:\n%s" % confusion_matrix(yte_max, ypred_max))
    print('F1 Score ', score)
+   
+   # bring up the raw labels from the lookup dict
+   ypred_max = np.array([labels[x] for x in ypred_max])
+   yte_max = np.array([labels[x] for x in yte_max])
+   
+   concat = np.column_stack((yte_max, ypred_max))
+   np.savetxt(fname + '.out', concat, delimiter = ' ', fmt='%s')
 
 # read all the keras models from the CV as an ensemble
 models = []
@@ -52,8 +59,10 @@ if cfg['embedding_dim']:
    lstm_input_dim = cfg['embedding_dim']
 if cfg['nlabels']:
    nlabels = cfg['nlabels']
-
-predict_test_file('data_test_a/vectorized.txt', lstm_input_dim, nlabels)
-predict_test_file('data_test_b/vectorized.txt', lstm_input_dim, nlabels)
+   
+labels = cfg['labels']
+   
+predict_test_file('data_test_a/vectorized.txt', lstm_input_dim, nlabels, labels)
+predict_test_file('data_test_b/vectorized.txt', lstm_input_dim, nlabels, labels)
 
 

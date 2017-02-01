@@ -1,0 +1,14 @@
+thomasjungblut@THOMAS-DESKTOP:/mnt/c/Users/thomas.jungblut/git/ner-sequencelearning$ perl conlleval < data_test_a/vectorized.txt.out
+processed 51577 tokens with 5917 phrases; found: 5779 phrases; correct: 5142.
+accuracy:  97.64%; precision:  88.98%; recall:  86.90%; FB1:  87.93
+              LOC: precision:  92.17%; recall:  92.02%; FB1:  92.10  1827
+             MISC: precision:  85.33%; recall:  75.71%; FB1:  80.23  811
+              ORG: precision:  81.09%; recall:  77.70%; FB1:  79.36  1285
+              PER: precision:  92.89%; recall:  94.10%; FB1:  93.49  1856
+thomasjungblut@THOMAS-DESKTOP:/mnt/c/Users/thomas.jungblut/git/ner-sequencelearning$ perl conlleval < data_test_b/vectorized.txt.out
+processed 46665 tokens with 5616 phrases; found: 5510 phrases; correct: 4640.
+accuracy:  96.71%; precision:  84.21%; recall:  82.62%; FB1:  83.41
+              LOC: precision:  86.55%; recall:  88.06%; FB1:  87.30  1695
+             MISC: precision:  74.80%; recall:  66.90%; FB1:  70.63  627
+              ORG: precision:  78.70%; recall:  76.50%; FB1:  77.59  1601
+              PER: precision:  90.99%; recall:  90.14%; FB1:  90.56  1587
